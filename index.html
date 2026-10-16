@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- SheetJS Library untuk eksport ke Excel (.xlsx) -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <title>Borang Instrumen 1 Uji Rintis Dokumen Kurikulum PJ Tingkatan 3</title>
+  <style>
+    :root {
+      --primary-color: #0d47a1;
+      --secondary-color: #1976d2;
+      --bg-color: #f4f6f9;
+      --card-bg: #ffffff;
+      --text-color: #333333;
+      --border-color: #cccccc;
+      --admin-color: #d32f2f;
+    }
+
+* {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      padding: 20px 10px;
+    }
+
+.container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      padding: 30px 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      position: relative;
+    }
+
+/* Header & Logo KPM */
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #e0e0e0;
+      padding-bottom: 20px;
+    }
+
+.header img {
+      max-width: 450px;
+      width: 100%;
+      height: auto;
+      margin-bottom: 15px;
+    }
+
+.header h2 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #222;
+      line-height: 1.4;
+    }
+
+/* Pilihan Jenis Borang & Kotak Maklumat */
+    .form-selector-box {
+      background: #e3f2fd;
+      border: 1px solid #bbdefb;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 25px;
+    }
+
+.info-box {
+      background-color: #f8f9fa;
+      border-left: 4px solid var(--secondary-color);
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 0 6px 6px 0;
+      font-size: 0.93rem;
+    }
+
+.info-box ol {
+      margin-left: 20px;
+    }
+
+/* Seksyen Borang & Elemen Input */
+    .form-section {
+      margin-bottom: 30px;
+    }
+
+.section-title {
+      font-size: 1.05rem;
+      color: #ffffff;
+      background-color: var(--primary-color);
+      padding: 10px 15px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+.form-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+.form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+      color: #222;
+    }
+
+.form-group input[type="text"], 
+    .form-group input[type="number"], 
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      font-size: 0.95rem;
+    }
+
+.options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 10px;
+      background: #fafafa;
+      padding: 12px;
+      border: 1px solid #eee;
+      border-radius: 6px;
+    }
+
+.option-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      font-size: 0.92rem;
+    }
+
+.nested-input {
+      margin-top: 8px;
+    }
+
+/* Styling Jadual Responsif */
+    .table-container {
+      overflow-x: auto;
+      margin-bottom: 25px;
+    }
+
+table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+    }
+
+th, td {
+      border: 1px solid #000;
+      padding: 8px;
+    }
+
+th {
+      background-color: #000;
+      color: #fff;
+      text-align: left;
+    }
+
+/* Butang Hantar Utama */
+    .btn-submit {
+      width: 100%;
+      background-color: var(--primary-color);
+      color: #ffffff;
+      border: none;
+      padding: 14px 20px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.2s, opacity 0.2s;
+    }
+
+.btn-submit:disabled {
+      background-color: #78909c;
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+
+/* Mod Pentadbir & Kawalan */
+    .admin-bar {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+.btn-admin {
+      background-color: #455a64;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+.btn-analisis {
+      background-color: #2e7d32;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem;
+      display: none;
+    }
+
+.btn-logout {
+      background-color: var(--admin-color);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem;
+      display: none;
+    }
+
+.admin-panel {
+      display: none;
+      background: #ffebee;
+      border: 2px dashed var(--admin-color);
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 25px;
+    }
+
+.admin-panel h3 {
+      color: var(--admin-color);
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+
+.admin-form-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+.admin-form-group input, 
+    .admin-form-group select {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 0.9rem;
+    }
+
+.btn-add {
+      background-color: #388e3c;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+.admin-controls {
+      display: none;
+      gap: 5px;
+      margin-left: 10px;
+    }
+
+.btn-edit-item {
+      background: #fbc02d;
+      border: none;
+      padding: 2px 8px;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 0.75rem;
+      font-weight: bold;
+    }
+
+.btn-delete-item {
+      background: #e53935;
+      color: white;
+      border: none;
+      padding: 2px 8px;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 0.75rem;
+      font-weight: bold;
+    }
+
+/* Dasbor Analisis Korporat KPM Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      overflow-y: auto;
+    }
+
+.modal-content-kpm {
+      background-color: #ffffff;
+      margin: 3% auto;
+      padding: 30px;
+      border-radius: 8px;
+      width: 92%;
+      max-width: 900px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      border-top: 6px solid var(--primary-color);
+      position: relative;
+    }
+
+.close-modal {
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #aaa;
+    }
+
+.close-modal:hover { 
+      color: #000; 
+    }
+
+.kpm-report-header {
+      border-bottom: 2px solid #0d47a1;
+      padding-bottom: 15px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+.kpm-report-header h3 {
+      font-size: 1.2rem;
+      color: #0d47a1;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+.kpm-report-header p {
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+.stat-summary-box {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+.stat-card-kpm {
+      background: #f4f6f9;
+      border: 1px solid #d1d9e6;
+      border-radius: 6px;
+      padding: 15px;
+      text-align: center;
+    }
+
+.stat-card-kpm span {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #555;
+      text-transform: uppercase;
+    }
+
+.stat-card-kpm strong {
+      display: block;
+      font-size: 1.8rem;
+      color: #0d47a1;
+      margin-top: 5px;
+    }
+
+.kpm-table-analysis {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+      font-size: 0.88rem;
+    }
+
+.kpm-table-analysis th {
+      background-color: #1976d2;
+      color: #ffffff;
+      padding: 8px 12px;
+      text-align: left;
+      font-weight: 600;
+      border: 1px solid #1565c0;
+    }
+
+.kpm-table-analysis td {
+      padding: 8px 12px;
+      border: 1px solid #e0e0e0;
+    }
+
+.kpm-table-analysis tr:nth-child(even) {
+      background-color: #f9fbfd;
+    }
+
+.btn-print-kpm {
+      background-color: #37474f;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+/* Responsif Peranti Mudah Alih & Cetakan */
+    @media (max-width: 600px) {
+      .container { 
+        padding: 20px 12px; 
+      }
+      .header h2 { 
+        font-size: 0.95rem; 
+      }
+      .header img { 
+        max-width: 250px; 
+      }
+      .options-grid { 
+        grid-template-columns: 1fr; 
+      }
+      .kpm-report-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+    }
+
+@media print {
+      body * { 
+        visibility: hidden; 
+      }
+      #modalAnalisis, #modalAnalisis * { 
+        visibility: visible; 
+      }
+      #modalAnalisis { 
+        position: absolute; 
+        left: 0; 
+        top: 0; 
+        width: 100%; 
+        background: none; 
+      }
+      .close-modal, .btn-print-kpm { 
+        display: none !important; 
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Admin Switch Bar -->
+    <div class="admin-bar">
+      <button type="button" class="btn-admin" id="btnAdminLogin" onclick="loginAdmin()">🔑 Admin</button>
+      <button type="button" class="btn-analisis" id="btnAnalisis" onclick="bukaAnalisis()">📊 Analisis</button>
+      <button type="button" class="btn-logout" id="btnLogout" onclick="logoutAdmin()">🚪 Logout</button>
+    </div>
+
+<!-- Admin Panel -->
+    <div class="admin-panel" id="adminPanel">
+      <h3>Panel Pentadbir - Tambah Item Soalan</h3>
+      <div class="admin-form-group">
+        <select id="newSec">
+          <option value="A">Bahagian A (Profil Sekolah)</option>
+          <option value="B">Bahagian B (Profil Guru)</option>
+          <option value="C1">Bahagian C1 (Awalan Dokumen)</option>
+          <option value="C2">Bahagian C2 (Kandungan Pembelajaran)</option>
+          <option value="C3">Bahagian C3 (Standard Prestasi)</option>
+        </select>
+        <input type="text" id="newItemNo" placeholder="No. Item (cth: A6 / C1.17)" style="width: 130px;">
+        <input type="text" id="newLabel" placeholder="Teks Soalan / Perkara" style="flex: 1;">
+      </div>
+      <button type="button" class="btn-add" onclick="tambahItemBaru()">+ Tambah Item</button>
+    </div>
+
+<!-- Header Logo & Tajuk (Tingkatan 3) -->
+    <header class="header">
+      <img src="http://interactivelink.my/wp-content/uploads/userfilehosting/118/3-Logo-Korporat-KPM-BM-Hitam.png" alt="Logo KPM">
+      <h2>INSTRUMEN UJI RINTIS DOKUMEN KURIKULUM PERSEKOLAHAN SEKOLAH MENENGAH<br>MATA PELAJARAN PENDIDIKAN JASMANI TINGKATAN 3</h2>
+    </header>
+
+<form id="pilotForm">
+      <!-- Pilihan Jenis Borang -->
+      <div class="form-selector-box">
+        <div class="form-group" style="margin-bottom: 0;">
+          <label for="jenisBorang" style="color: #0d47a1; font-size: 1rem;">Sila Pilih Jenis Borang Instrumen:</label>
+          <select id="jenisBorang" name="jenis_borang" required onchange="renderBorang()">
+            <option value="Instrumen 1: Borang Maklum Balas Guru" selected>Instrumen 1: Borang Maklum Balas Guru</option>
+            <option value="Instrumen 2: Borang Pencerapan PdP">Instrumen 2: Borang Pencerapan PdP</option>
+            <option value="Instrumen 3: Borang Soal Selidik Guru">Instrumen 3: Borang Soal Selidik Guru</option>
+            <option value="Instrumen 4: Borang Soal Selidik Temu Bual Murid">Instrumen 4: Borang Soal Selidik Temu Bual Murid</option>
+          </select>
+        </div>
+      </div>
+
+<!-- Container Dinamik -->
+      <div id="dynamicFormContainer"></div>
+
+<button type="submit" class="btn-submit" id="submitBtn">Hantar Maklum Balas</button>
+    </form>
+  </div>
+
+<!-- Modal Dasbor Analisis Korporat KPM -->
+<div id="modalAnalisis" class="modal">
+  <div class="modal-content-kpm">
+    <span class="close-modal" onclick="tutupAnalisis()">×</span>
+
+<div class="kpm-report-header">
+      <div>
+        <h3>Laporan Analisis Maklum Balas Responden</h3>
+        <p>Instrumen Uji Rintis Dokumen Kurikulum Persekolahan 2027 (PJ Tingkatan 3)</p>
+      </div>
+      <!-- Butang Muat Turun Excel -->
+      <button type="button" id="btnDownloadExcel" class="btn-print-kpm" style="background-color: #2e7d32;" onclick="muatTurunKeseluruhanExcel()">
+        📊 Muat Turun Excel
+      </button>
+    </div>
+
+<div id="analisisBody">
+      <p style="text-align: center; padding: 20px; font-style: italic;">Sedang memuatkan data analisis dari pangkalan data...</p>
+    </div>
+  </div>
+</div>
+
+<script>
+// URL Google Apps Script Deployment
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzbtthG3uzP6WTFAzlvu2bz0gL61XK7OK8kbO9LK7WJjvc9OgukRMW1shNAKDvWL9TKYA/exec';
+
+let isAdminMode = false;
+let globalAnalysisData = null;
+
+// ==========================================
+// 1. SKEMA DATA BAHAGIAN A & B (TINGKATAN 3)
+// ==========================================
+let schemaA = [
+  { id: 'a1_nama_sekolah', code: 'A1', label: 'Nama Sekolah', type: 'text' },
+  { id: 'a2_kod_sekolah', code: 'A2', label: 'Kod Sekolah', type: 'text' },
+  { id: 'a3_lokasi', code: 'A3', label: 'Lokasi Sekolah', type: 'radio', options: ['Bandar', 'Luar Bandar'] },
+  { 
+    id: 'a4_jenis', code: 'A4', label: 'Jenis Sekolah', type: 'radio_with_text', options: [
+      'Sekolah Menengah Kebangsaan (SMK)', 'Sekolah Berasrama Penuh (SBP)', 'Sekolah Menengah Kebangsaan Agama (SMKA)',
+      'Sekolah Menengah Jenis Kebangsaan (SMJK)', 'Sekolah Seni Malaysia (SSeM)', 'Sekolah Sukan Malaysia (SSM)', 
+      'Sekolah Menengah Pendidikan Khas (SMPK)', 'Sekolah Kebangsaan (SK)', 'Sekolah Jenis Kebangsaan Cina (SJKC)', 
+      'Sekolah Jenis Kebangsaan Tamil (SJKT)', 'Sekolah Kebangsaan (Asli)', 'Sekolah Kebangsaan Pendidikan Khas (SKPK)', 
+      'Sekolah Agama Bantuan Kerajaan (SABK Rendah)', 'Sekolah Agama Bantuan Kerajaan (SABK Menengah)', 'Lain-lain'
+    ] 
+  },
+  { 
+    id: 'a5_negeri', code: 'A5', label: 'Negeri', type: 'select', options: [
+      'Perlis', 'Kedah', 'P. Pinang', 'Perak', 'Selangor', 'N. Sembilan', 'Melaka', 'Johor',
+      'Pahang', 'Terengganu', 'Kelantan', 'Sabah', 'Sarawak', 'WP Kuala Lumpur', 'WP Putrajaya', 'WP Labuan'
+    ] 
+  }
+];
+
+let schemaB = [
+  { id: 'b1_jantina', code: 'B1', label: 'Jantina', type: 'radio', options: ['Lelaki', 'Perempuan'] },
+  { id: 'b2_jawatan', code: 'B2', label: 'Jawatan Guru', type: 'radio', options: ['Guru Penolong Kanan', 'Guru Kanan Mata Pelajaran', 'Ketua Panitia', 'Guru Mata Pelajaran'] },
+  { id: 'b3_pengalaman', code: 'B3', label: 'Pengalaman Mengajar Mata Pelajaran Berkaitan', type: 'radio', options: ['Kurang 1 tahun', '1 – 5 tahun', '6 – 10 tahun', 'Lebih 10 tahun'] },
+  { id: 'b4_akademik', code: 'B4', label: 'Kelulusan Akademik Tertinggi', type: 'radio', options: ['Diploma', 'Ijazah Sarjana Muda', 'Ijazah Sarjana', 'Ijazah Doktor Falsafah'] },
+  { id: 'b5_ikhtisas', code: 'B5', label: 'Kelulusan Ikhtisas', type: 'radio', options: ['Sijil Perguruan', 'Diploma Perguruan/Pendidikan', 'Ijazah Sarjana Muda Pendidikan'] },
+  { id: 'b6_opsyen', code: 'B6', label: 'Adakah anda guru opsyen mata pelajaran yang dirintis?', type: 'radio_with_text', options: ['Ya', 'Bukan guru opsyen', 'Bukan guru opsyen tetapi telah menghadiri kursus conversion/PITO'] },
+  { id: 'b7_bilangan_murid', code: 'B7', label: 'Bilangan murid dalam kelas yang hendak dirintis', type: 'number' }
+];
+
+// ==========================================
+// 2. SKEMA DATA BAHAGIAN C (C1, C2, C3) - TINGKATAN 3
+// ==========================================
+let schemaC1 = [
+  { code: 'C1.1', label: 'Pendahuluan', id: 'c1_1' },
+  { code: 'C1.2', label: 'Matlamat', id: 'c1_2' },
+  { code: 'C1.3', label: 'Kurikulum Berasaskan Standard Dan Berorientasikan Kompetensi', id: 'c1_3' },
+  { code: 'C1.4', label: 'Kerangka Kurikulum Persekolahan 2027', id: 'c1_4' },
+  { code: 'C1.5', label: 'Kompetensi', id: 'c1_5' },
+  { code: '', label: '1. Perkembangan Diri', id: 'c1_5_1' },
+  { code: '', label: '2. Komunikasi', id: 'c1_5_2' },
+  { code: '', label: '3. Tanggungjawab', id: 'c1_5_3' },
+  { code: '', label: '4. Fasih Digital', id: 'c1_5_4' },
+  { code: '', label: '5. Literasi Pelbagai', id: 'c1_5_5' },
+  { code: '', label: '6. Kemahiran Berfikir', id: 'c1_5_6' },
+  { code: '', label: '7. Pembelajaran Sepanjang Hayat', id: 'c1_5_7' },
+  { code: 'C1.6', label: 'Pembentukan Karakter', id: 'c1_6' },
+  { code: 'C1.7', label: 'Pentaksiran Bilik Darjah', id: 'c1_7' },
+  { code: 'C1.8', label: 'Elemen Nilai Tambah', id: 'c1_8' },
+  { code: 'C1.9', label: 'Kurikulum Pendidikan Jasmani', id: 'c1_9' },
+  { code: 'C1.10', label: 'Pengenalan Pendidikan Jasmani', id: 'c1_10' },
+  { code: 'C1.11', label: 'Matlamat Pendidikan Jasmani', id: 'c1_11' },
+  { code: 'C1.12', label: 'Objektif Umum Pendidikan Jasmani', id: 'c1_12' },
+  { code: 'C1.13', label: 'Objektif Khusus Pendidikan Jasmani', id: 'c1_13' },
+  { code: 'C1.14', label: 'Fokus Kurikulum Pendidikan Jasmani', id: 'c1_14' },
+  { code: 'C1.15', label: 'Strategi Pengajaran dan Pembelajaran', id: 'c1_15' },
+  { code: 'C1.16', label: 'Organisasi Kandungan Pendidikan Jasmani', id: 'c1_16' }
+];
+
+let schemaC2 = [
+  { code: 'C2.1', label: 'Bidang Pembelajaran: 1.0 Asas Pergerakan', isHeader: true },
+  { code: 'C2.1.1', label: 'Subbidang Pembelajaran: 1.1 Pergerakan Berirama', isSubHeader: true },
+  { code: '', label: 'a. Kandungan pembelajaran', id: 'c2_1_1_a' },
+  { code: '', label: 'b. Kompetensi', id: 'c2_1_1_b' },
+  { code: '', label: 'c. Standard Pembelajaran', isLabel: true },
+  { code: '', label: 'Psikomotor', isGroup: true },
+  { code: '', label: 'P1.1.1 Melakukan pergerakan kreatif dengan menggunakan props mengikut muzik yang didengar.', id: 'p1_1_1' },
+  { code: '', label: 'P1.1.2 Meniru langkah asas tarian Zapin dan Sumazau mengikut muzik yang didengar.', id: 'p1_1_2' },
+  { code: '', label: 'P1.1.3 Mengimprovisasi langkah tarian Zapin dan Sumazau kepada pergerakan baharu serta mempersembahkan mengikut muzik yang didengar.', id: 'p1_1_3' },
+  { code: '', label: 'Kognitif', isGroup: true },
+  { code: '', label: 'K1.1.1 Menjelaskan perkaitan props yang digunakan dengan pergerakan kreatif yang direka cipta.', id: 'k1_1_1' },
+  { code: '', label: 'K1.1.2 Menyenaraikan langkah asas dalam tarian Zapin dan Sumazau serta pergerakan lokomotor yang digunakan.', id: 'k1_1_2' },
+  { code: '', label: 'K1.1.3 Membuat justifikasi pemilihan langkah, formasi, konsep pergerakan dan muzik yang digunakan dalam merancang pergerakan baharu.', id: 'k1_1_3' },
+  { code: '', label: 'Afektif - Pengurusan dan Keselamatan', isGroup: true },
+  { code: '', label: 'A1.1.1 Menggunakan peralatan dan ruang yang selamat semasa melakukan aktiviti.', id: 'a1_1_1' },
+  { code: '', label: 'Afektif - Tanggungjawab Kendiri', isGroup: true },
+  { code: '', label: 'A1.1.2 Mengambil bahagian dalam aktiviti secara aktif dan mempamerkan keseronokan.', id: 'a1_1_2' },
+  { code: '', label: 'A1.1.3 Menetapkan dan mencapai matlamat kendiri untuk menguasai kemahiran dipelajari.', id: 'a1_1_3' },
+  { code: '', label: 'Afektif - Interaksi Sosial', isGroup: true },
+  { code: '', label: 'A1.1.4 Berinteraksi secara positif semasa melakukan aktiviti tanpa mengira perbezaan individu.', id: 'a1_1_4' },
+  { code: '', label: 'Afektif - Dinamika Kumpulan', isGroup: true },
+  { code: '', label: 'A1.1.5 Bekerjasama menyelesaikan masalah semasa melakukan aktiviti.', id: 'a1_1_5' },
+
+  { code: 'C2.1.2', label: 'Subbidang Pembelajaran: 1.2 Gimnastik Asas', isSubHeader: true },
+  { code: '', label: 'a. Kandungan pembelajaran', id: 'c2_1_2_a' },
+  { code: '', label: 'b. Kompetensi', id: 'c2_1_2_b' },
+  { code: '', label: 'c. Standard Pembelajaran', isLabel: true },
+  { code: '', label: 'Psikomotor', isGroup: true },
+  { code: '', label: 'P1.2.1 Melakukan rangkaian kemahiran asas gimnastik dalam gimnastrada.', id: 'p1_2_1' },
+  { code: '', label: 'P1.2.2 Mereka cipta rutin dan mempersembahkan senam lantai dengan menggunakan kemahiran gerak edar dan imbangan secara berkumpulan.', id: 'p1_2_2' },
+  { code: '', label: 'P1.2.3 Mereka cipta rutin dan mempersembahkan senam lantai dengan menggunakan kemahiran gerak edar, imbangan, putaran dan hambur secara berkumpulan.', id: 'p1_2_3' },
+  { code: '', label: 'P1.2.4 Mereka cipta rutin dan mempersembahkan senam lantai dengan menggunakan kemahiran gerak edar, imbangan, putaran dan hambur secara berkumpulan menggunakan peralatan (apparatus).', id: 'p1_2_4' },
+  { code: '', label: 'Kognitif', isGroup: true },
+  { code: '', label: 'K1.2.1 Mengaplikasikan pengetahuan konsep pergerakan dan prinsip asas mekanik semasa melakukan rangkaian kemahiran asas gimnastik dalam gimnastrada.', id: 'k1_2_1' },
+  { code: '', label: 'K1.2.2 Menjelaskan konsep pergerakan yang sesuai digunakan semasa mereka cipta persembahan senam lantai.', id: 'k1_2_2' },
+  { code: '', label: 'K1.2.3 Memilih gerak edar, imbangan, putaran, hambur, formasi, muzik dan alatan yang sesuai digunakan untuk mereka cipta persembahan senam lantai.', id: 'k1_2_3' },
+  { code: '', label: 'K1.2.4 Menghubung kait gerak edar, imbangan, putaran, hambur, formasi, muzik dan alatan yang sesuai digunakan untuk mereka cipta persembahan senam lantai.', id: 'k1_2_4' },
+  { code: '', label: 'Afektif - Pengurusan dan Keselamatan', isGroup: true },
+  { code: '', label: 'A1.2.1 Bersedia dari segi pakaian, peralatan dan kawasan yang selamat dan sesuai.', id: 'a1_2_1' },
+  { code: '', label: 'A1.2.2 Mematuhi peraturan dan langkah-langkah keselamatan semasa melakukan aktiviti.', id: 'a1_2_2' },
+  { code: '', label: 'A1.2.3 Mematuhi arahan guru semasa melakukan aktiviti berisiko secara individu dan berkumpulan.', id: 'a1_2_3' },
+  { code: '', label: 'Afektif - Tanggungjawab Kendiri', isGroup: true },
+  { code: '', label: 'A1.2.4 Mempamerkan keseronokan semasa melakukan aktiviti mencabar.', id: 'a1_2_4' },
+  { code: '', label: 'Afektif - Interaksi Sosial', isGroup: true },
+  { code: '', label: 'A1.2.5 Berinteraksi secara positif semasa melakukan aktiviti.', id: 'a1_2_5' },
+  { code: '', label: 'Afektif - Dinamika Kumpulan', isGroup: true },
+  { code: '', label: 'A1.2.6 Menetapkan dan mencapai matlamat kumpulan untuk melakukan aktiviti.', id: 'a1_2_6' },
+  { code: '', label: 'A1.2.7 Menerima perbezaan individu dan bekerjasama dalam kumpulan semasa melakukan aktiviti.', id: 'a1_2_7' },
+
+  { code: 'C2.2', label: 'Bidang Pembelajaran: 2.0 Sukan dan Permainan', isHeader: true },
+  { code: 'C2.2.1', label: 'Subbidang Pembelajaran: 2.1 Permainan Kategori Serangan - Bola Keranjang', isSubHeader: true },
+  { code: '', label: 'a. Kandungan pembelajaran', id: 'c2_2_1_a' },
+  { code: '', label: 'b. Kompetensi', id: 'c2_2_1_b' },
+  { code: '', label: 'c. Standard Pembelajaran', isLabel: true },
+  { code: '', label: 'Psikomotor', isGroup: true },
+  { code: '', label: 'P2.1.1 Melakukan kemahiran menghantar dan menerima bola dari pelbagai arah, aras dan kelajuan dalam situasi permainan.', id: 'p2_1_1' },
+  { code: '', label: 'P2.1.2 Melakukan kemahiran mengelecek bola mengikut ruang dan laluan dalam situasi permainan.', id: 'p2_1_2' },
+  { code: '', label: 'P2.1.3 Melakukan kemahiran menjaring secara statik, melompat dan melayang dalam situasi permainan.', id: 'p2_1_3' },
+  { code: '', label: 'P2.1.4 Melakukan kemahiran mengadang tanpa bola dan dengan bola dalam situasi permainan.', id: 'p2_1_4' },
+  { code: '', label: 'Kognitif', isGroup: true },
+  { code: '', label: 'K2.1.1 Menjelaskan fasa lakuan dan kedudukan pemain semasa kemahiran menghantar dan menerima bola dengan teknik yang betul.', id: 'k2_1_1' },
+  { code: '', label: 'K2.1.2 Menerangkan peranan pandangan periferi semasa mengelecek bola dalam situasi permainan.', id: 'k2_1_2' },
+  { code: '', label: 'K2.1.3 Memberikan justifikasi kemahiran menjaring yang sesuai berdasarkan situasi permainan.', id: 'k2_1_3' },
+  { code: '', label: 'K2.1.4 Memberikan justifikasi kemahiran mengadang yang sesuai berdasarkan situasi permainan.', id: 'k2_1_4' },
+  { code: '', label: 'Afektif - Pengurusan dan Keselamatan', isGroup: true },
+  { code: '', label: 'A2.1.1 Menggunakan peralatan dan ruang yang selamat semasa melakukan aktiviti.', id: 'a2_1_1' },
+  { code: '', label: 'A2.1.2 Mematuhi langkah-langkah keselamatan semasa melakukan aktiviti.', id: 'a2_1_2' },
+  { code: '', label: 'Afektif - Tanggungjawab Kendiri', isGroup: true },
+  { code: '', label: 'A2.1.3 Melibatkan diri secara aktif dan mempamerkan keseronokan semasa melakukan aktiviti.', id: 'a2_1_3' },
+  { code: '', label: 'Afektif - Interaksi Sosial', isGroup: true },
+  { code: '', label: 'A2.1.4 Berkomunikasi secara berkesan semasa melakukan aktiviti tanpa mengira perbezaan individu.', id: 'a2_1_4' },
+  { code: '', label: 'Afektif - Dinamika Kumpulan', isGroup: true },
+  { code: '', label: 'A2.1.5 Bekerjasama mencapai matlamat kumpulan semasa melakukan aktiviti.', id: 'a2_1_5' },
+  { code: '', label: 'Afektif - Etika dalam Sukan', isGroup: true },
+  { code: '', label: 'A2.1.6 Melakukan aktiviti mengikut peraturan yang ditetapkan dengan beretika.', id: 'a2_1_6' },
+  { code: '', label: 'A2.1.7 Menerima kemenangan dan kekalahan secara positif.', id: 'a2_1_7' },
+  { code: '', label: 'A2.1.8 Menghormati pemain lawan.', id: 'a2_1_8' },
+
+  { code: 'C2.2.2', label: 'Subbidang Pembelajaran: 2.2 Permainan Kategori Serangan - Hoki', isSubHeader: true },
+  { code: '', label: 'a. Kandungan pembelajaran', id: 'c2_2_2_a' },
+  { code: '', label: 'b. Kompetensi', id: 'c2_2_2_b' },
+  { code: '', label: 'c. Standard Pembelajaran', isLabel: true },
+  { code: '', label: 'Psikomotor', isGroup: true },
+  { code: '', label: 'P2.2.1 Melakukan pelbagai kemahiran menghantar bola yang melibatkan menolak, memukul, menguis dan mencedok dalam situasi permainan.', id: 'p2_2_1' },
+  { code: '', label: 'P2.2.2 Melakukan kemahiran menerima bola secara pepat dan kilas dari pelbagai arah dan aras dalam situasi permainan.', id: 'p2_2_2' },
+  { code: '', label: 'P2.2.3 Melakukan kemahiran mengelecek bola yang melibatkan kelecek rapat, kelecek longgar dan kelecek India dalam situasi permainan.', id: 'p2_2_3' },
+  { code: '', label: 'P2.2.4 Melakukan pelbagai kemahiran menjaring gol dalam situasi permainan.', id: 'p2_2_4' },
+  { code: '', label: 'P2.2.5 Melakukan kemahiran menjaga gawang dengan pelbagai cara dalam situasi permainan.', id: 'p2_2_5' },
+  { code: '', label: 'Kognitif', isGroup: true },
+  { code: '', label: 'K2.2.1 Menjelaskan perbezaan kedudukan tangan pada kayu hoki semasa melakukan pelbagai kemahiran menghantar bola.', id: 'k2_2_1' },
+  { code: '', label: 'K2.2.2 Memberikan justifikasi kemahiran menerima bola berdasarkan arah dan aras bola yang dihantar dalam situasi permainan.', id: 'k2_2_2' },
+  { code: '', label: 'K2.2.3 Mengenal pasti kemahiran mengelecek pada ruang dan laluan yang sesuai untuk bergerak dengan bola berdasarkan situasi permainan.', id: 'k2_2_3' },
+  { code: '', label: 'K2.2.4 Menjelaskan kemahiran menjaring gol yang sesuai digunakan berdasarkan situasi permainan.', id: 'k2_2_4' },
+  { code: '', label: 'K2.2.5 Mengenal pasti cara yang sesuai untuk mengecilkan ruang gawang daripada dibolosi berdasarkan situasi permainan.', id: 'k2_2_5' },
+  { code: '', label: 'Afektif - Pengurusan dan Keselamatan', isGroup: true },
+  { code: '', label: 'A2.2.1 Menggunakan peralatan ruang yang selamat semasa melakukan aktiviti.', id: 'a2_2_1' },
+  { code: '', label: 'A2.2.2 Mematuhi langkah-langkah keselamatan semasa melakukan aktiviti.', id: 'a2_2_2' },
+  { code: '', label: 'Afektif - Tanggungjawab Kendiri', isGroup: true },
+  { code: '', label: 'A2.2.3 Melibatkan diri secara aktif dan mempamerkan keseronokan semasa melakukan aktiviti.', id: 'a2_2_3' },
+  { code: '', label: 'Afektif - Interaksi Sosial', isGroup: true },
+  { code: '', label: 'A2.2.4 Berkomunikasi secara berkesan semasa melakukan aktiviti.', id: 'a2_2_4' },
+  { code: '', label: 'Afektif - Dinamika Kumpulan', isGroup: true },
+  { code: '', label: 'A2.2.5 Bekerjasama mencapai matlamat kumpulan semasa melakukan aktiviti tanpa mengira kebolehan individu.', id: 'a2_2_5' },
+  { code: '', label: 'Afektif - Etika dalam Sukan', isGroup: true },
+  { code: '', label: 'A2.2.6 Melakukan aktiviti mengikut peraturan yang ditetapkan dengan beretika.', id: 'a2_2_6' },
+  { code: '', label: 'A2.2.7 Menerima kemenangan dan kekalahan secara positif.', id: 'a2_2_7' },
+  { code: '', label: 'A2.2.8 Menghormati pemain lawan.', id: 'a2_2_8' },
+
+  { code: 'C2.2.3', label: 'Subbidang Pembelajaran: 2.3 Permainan Kategori Jaring - Pingpong', isSubHeader: true },
+  { code: '', label: 'a. Kandungan pembelajaran', id: 'c2_2_3_a' },
+  { code: '', label: 'b. Kompetensi', id: 'c2_2_3_b' },
+  { code: '', label: 'c. Standard Pembelajaran', isLabel: true },
+  { code: '', label: 'Psikomotor', isGroup: true },
+  { code: '', label: 'P2.3.1 Melakukan kemahiran pukulan pepat dan pukulan kilas dalam situasi permainan.', id: 'p2_3_1' },
+  { code: '', label: 'P2.3.2 Melakukan kemahiran tolak pepat dan tolak kilas dalam situasi permainan.', id: 'p2_3_2' },
+  { code: '', label: 'P2.3.3 Melakukan kemahiran servis pepat dan servis kilas dalam situasi permainan.', id: 'p2_3_3' },
+  { code: '', label: 'P2.3.4 Melakukan kemahiran smesy dalam situasi permainan.', id: 'p2_3_4' },
+  { code: '', label: 'Kognitif', isGroup: true },
+  { code: '', label: 'K2.3.1 Menjelaskan perbezaan antara lakuan pukulan pepat dengan pukulan kilas.', id: 'k2_3_1' },
+  { code: '', label: 'K2.3.2 Menyatakan kedudukan permukaan bet semasa melakukan tolak pepat dan tolak kilas.', id: 'k2_3_2' },
+  { code: '', label: 'K2.3.3 Menyatakan postur badan yang sesuai semasa melakukan servis pepat dan servis kilas.', id: 'k2_3_3' },
+  { code: '', label: 'K2.3.4 Mengenal pasti aras dan kedudukan bola yang sesuai untuk melakukan smesy.', id: 'k2_3_4' },
+  { code: '', label: 'Afektif - Pengurusan dan Keselamatan', isGroup: true },
+  { code: '', label: 'A2.3.1 Menggunakan peralatan dan ruang yang selamat semasa melakukan aktiviti.', id: 'a2_3_1' },
+  { code: '', label: 'A2.3.2 Mematuhi peraturan dan langkah-langkah keselamatan semasa melakukan aktiviti.', id: 'a2_3_2' },
+  { code: '', label: 'Afektif - Tanggungjawab Kendiri', isGroup: true },
+  { code: '', label: 'A2.3.3 Berusaha melakukan aktiviti yang mencabar dengan seronok.', id: 'a2_3_3' },
+  { code: '', label: 'Afektif - Interaksi Sosial', isGroup: true },
+  { code: '', label: 'A2.3.4 Berkomunikasi secara berkesan semasa melakukan aktiviti.', id: 'a2_3_4' },
+  { code: '', label: 'Afektif - Dinamika Kumpulan', isGroup: true },
+  { code: '', label: 'A2.3.5 Bekerjasama mencapai matlamat kumpulan semasa melakukan aktiviti.', id: 'a2_3_5' },
+  { code: '', label: 'Afektif - Etika dalam Sukan', isGroup: true },
+  { code: '', label: 'A2.3.6 Mematuhi peraturan permainan yang ditetapkan dan beretika.', id: 'a2_3_6' },
+  { code: '', label: 'A2.3.7 Menerima kemenangan dan kekalahan dengan semangat kesukanan.', id: 'a2_3_7' },
+  { code: '', label: 'A2.3.8 Menghormati pasukan lawan.', id: 'a2_3_8' },
+
+  { code: 'C2.2.4', label: 'Subbidang Pembelajaran: 2.4 Permainan Kategori Memukul dan Memadang - Sofbol', isSubHeader: true },
+  { code: '', label: 'a. Kandungan pembelajaran', id: 'c2_2_4_a' },
+  { code: '', label: 'b. Kompetensi', id: 'c2_2_4_b' },
+  { code: '', label: 'c. Standard Pembelajaran', isLabel: true },
+  { code: '', label: 'Psikomotor', isGroup: true },
+  { code: '', label: 'P2.4.1 Melakukan kemahiran menangkap dan membaling bola pada pelbagai aras dan arah semasa memadang dalam situasi permainan.', id: 'p2_4_1' },
+  { code: '', label: 'P2.4.2 Melakukan kemahiran memukul bola dalam situasi permainan.', id: 'p2_4_2' },
+  { code: '', label: 'P2.4.3 Melakukan kemahiran menampan bola dalam situasi permainan.', id: 'p2_4_3' },
+  { code: '', label: 'P2.4.4 Melakukan larian antara tapak berdasarkan situasi permainan.', id: 'p2_4_4' },
+  { code: '', label: 'P2.4.5 Pitching bola ke sasaran dalam situasi permainan.', id: 'p2_4_5' },
+  { code: '', label: 'P2.4.6 Melakukan kemahiran menangkap bola pada posisi catcher.', id: 'p2_4_6' },
+  { code: '', label: 'P2.4.7 Melakukan kemahiran memadang mengikut posisi pemadang dalam situasi permainan.', id: 'p2_4_7' },
+  { code: '', label: 'Kognitif', isGroup: true },
+  { code: '', label: 'K2.4.1 Memberikan justifikasi cara menangkap dan membaling bola pada pelbagai aras dan arah semasa memadang.', id: 'k2_4_1' },
+  { code: '', label: 'K2.4.2 Memberikan justifikasi tujuan memukul bola ke kawasan permainan.', id: 'k2_4_2' },
+  { code: '', label: 'K2.4.3 Menyatakan lakuan menampan bola ke kawasan permainan.', id: 'k2_4_3' },
+  { code: '', label: 'K2.4.4 Memerihal perbezaan antara lakuan larian ke tapak pertama dengan larian antara tapak.', id: 'k2_4_4' },
+  { code: '', label: 'K2.4.5 Mengenal pasti titik pelepasan yang sesuai semasa pitching.', id: 'k2_4_5' },
+  { code: '', label: 'K2.4.6 Menerangkan kedudukan tangan yang sesuai untuk menangkap bola pada pelbagai aras.', id: 'k2_4_6' },
+  { code: '', label: 'K2.4.7 Menjelaskan posisi pemadang dalam berdasarkan kedudukan pelari di tapak.', id: 'k2_4_7' },
+  { code: '', label: 'K2.4.8 Menjelaskan posisi pemadang luar berdasarkan pemukul.', id: 'k2_4_8' },
+  { code: '', label: 'Afektif - Pengurusan dan Keselamatan', isGroup: true },
+  { code: '', label: 'A2.4.1 Menggunakan peralatan dan ruang yang selamat semasa melakukan aktiviti.', id: 'a2_4_1' },
+  { code: '', label: 'A2.4.2 Mematuhi peraturan dan langkah-langkah keselamatan semasa melakukan aktiviti.', id: 'a2_4_2' },
+  { code: '', label: 'Afektif - Tanggungjawab Kendiri', isGroup: true },
+  { code: '', label: 'A2.4.3 Mempamerkan keseronokan semasa melakukan aktiviti.', id: 'a2_4_3' },
+  { code: '', label: 'A2.4.4 Mempamerkan tanggungjawab sebagai ketua kumpulan.', id: 'a2_4_4' },
+  { code: '', label: 'Afektif - Interaksi Sosial', isGroup: true },
+  { code: '', label: 'A2.4.5 Berkomunikasi secara berkesan dengan ahli kumpulan semasa melakukan aktiviti.', id: 'a2_4_5' },
+  { code: '', label: 'Afektif - Dinamika Kumpulan', isGroup: true },
+  { code: '', label: 'A2.4.6 Bekerjasama dalam kumpulan semasa melakukan aktiviti.', id: 'a2_4_6' },
+  { code: '', label: 'Afektif - Etika dalam Sukan', isGroup: true },
+  { code: '', label: 'A2.4.7 Mematuhi peraturan permainan yang ditetapkan dan beretika.', id: 'a2_4_7' },
+  { code: '', label: 'A2.4.8 Menerima kemenangan dan kekalahan secara positif.', id: 'a2_4_8' },
+
+  { code: 'C2.2.5', label: 'Subbidang Pembelajaran: 2.5 Olahraga Asas', isSubHeader: true },
+  { code: '', label: 'a. Kandungan pembelajaran', id: 'c2_2_5_a' },
+  { code: '', label: 'b. Kompetensi', id: 'c2_2_5_b' },
+  { code: '', label: 'c. Standard Pembelajaran', isLabel: true },
+  { code: '', label: 'Psikomotor - Lari berpagar', isGroup: true },
+  { code: '', label: 'P2.5.1 Melakukan kemahiran lari berpagar.', id: 'p2_5_1' },
+  { code: '', label: 'Psikomotor - Lompat kijang', isGroup: true },
+  { code: '', label: 'P2.5.2 Melakukan kemahiran lompat jauh.', id: 'p2_5_2' },
+  { code: '', label: 'Psikomotor - Lempar cakera', isGroup: true },
+  { code: '', label: 'P2.5.3 Melakukan kemahiran lempar cakera dengan aplikasi rotasi.', id: 'p2_5_3' },
+  { code: '', label: 'Psikomotor - Tukul besi', isGroup: true },
+  { code: '', label: 'P2.5.4 Melakukan kemahiran lempar cakera dengan aplikasi rotasi dengan menggunakan alatan ubah suai.', id: 'p2_5_4' },
+  { code: '', label: 'Kognitif - Lari berpagar', isGroup: true },
+  { code: '', label: 'K2.5.1 Menjelaskan kedudukan tangan dan kaki semasa fasa lonjakan dalam lari berpagar.', id: 'k2_5_1' },
+  { code: '', label: 'Kognitif - Lompat kijang', isGroup: true },
+  { code: '', label: 'K2.5.2 Menjelaskan fasa lakuan dalam lompat kijang.', id: 'k2_5_2' },
+  { code: '', label: 'Kognitif - Lempar cakera', isGroup: true },
+  { code: '', label: 'K2.5.3 Menjelaskan kepentingan melakukan teknik rotasi.', id: 'k2_5_3' },
+  { code: '', label: 'K2.5.4 Menjelaskan perkaitan antara faktor ketinggian pelepasan, sudut pelepasan dan halaju pelepasan dengan jarak lemparan dalam lempar cakera.', id: 'k2_5_4' },
+  { code: '', label: 'Kognitif - Tukul besi', isGroup: true },
+  { code: '', label: 'K2.5.5 Menyatakan kepentingan putaran dalam kemahiran baling tukul besi.', id: 'k2_5_5' },
+  { code: '', label: 'K2.5.6 Menjelaskan perkaitan antara faktor ketinggian pelepasan, sudut pelepasan dan halaju pelepasan dengan jarak balingan dalam kemahiran baling tukul besi.', id: 'k2_5_6' },
+  { code: '', label: 'Afektif - Pengurusan dan Keselamatan', isGroup: true },
+  { code: '', label: 'A2.5.1 Bersedia dari segi pakaian, peralatan dan kawasan yang selamat sebelum melakukan aktiviti.', id: 'a2_5_1' },
+  { code: '', label: 'Afektif - Tanggungjawab Kendiri', isGroup: true },
+  { code: '', label: 'A2.5.2 Menetapkan matlamat kendiri dalam melakukan aktiviti.', id: 'a2_5_2' },
+  { code: '', label: 'A2.5.3 Berkeyakinan melakukan aktiviti yang mencabar dan seronok.', id: 'a2_5_3' },
+  { code: '', label: 'Afektif - Interaksi Sosial', isGroup: true },
+  { code: '', label: 'A2.5.4 Berkomunikasi secara positif dengan rakan.', id: 'a2_5_4' },
+
+  { code: 'C2.3', label: 'Bidang Pembelajaran: 3.0 Rekreasi dan Pendidikan Luar', isHeader: true },
+  { code: '', label: 'a. Kandungan pembelajaran', id: 'c2_3_a' },
+  { code: '', label: 'b. Kompetensi', id: 'c2_3_b' },
+  { code: '', label: 'c. Standard pembelajaran', isLabel: true },
+  { code: '', label: 'Psikomotor - Permainan Tradisional', isGroup: true },
+  { code: '', label: 'P3.1.1 Bermain permainan tradisional Gelap Cerah.', id: 'p3_1_1' },
+  { code: '', label: 'P3.1.2 Bermain permainan tradisional Aci Sep.', id: 'p3_1_2' },
+  { code: '', label: 'Psikomotor - Rekreasi', isGroup: true },
+  { code: '', label: 'P3.1.3 Bermain permainan pickleball.', id: 'p3_1_3' },
+  { code: '', label: 'Psikomotor - Pendidikan Luar', isGroup: true },
+  { code: '', label: 'P3.1.4 Melakukan aktiviti orienteering dengan menggunakan kompas, peta dan kad kawalan.', id: 'p3_1_4' },
+  { code: '', label: 'Kognitif - Permainan Tradisional', isGroup: true },
+  { code: '', label: 'K3.1.1 Menerangkan strategi untuk melepasi halangan dan mematikan pihak lawan dalam permainan tradisional Gelap Cerah.', id: 'k3_1_1' },
+  { code: '', label: 'K3.1.2 Menerangkan strategi untuk mematikan pihak lawan dan menyelamatkan diri dalam permainan tradisional Aci Sep.', id: 'k3_1_2' },
+  { code: '', label: 'Kognitif - Rekreasi', isGroup: true },
+  { code: '', label: 'K3.1.3 Menerangkan cara bermain dalam permainan pickleball.', id: 'k3_1_3' },
+  { code: '', label: 'Kognitif - Pendidikan Luar', isGroup: true },
+  { code: '', label: 'K3.1.4 Menentukan dan menjelaskan pilihan laluan ke sasaran mengunakan peta dan kompas.', id: 'k3_1_4' },
+  { code: '', label: 'Afektif - Pengurusan dan Keselamatan', isGroup: true },
+  { code: '', label: 'A3.1.1 Menggunakan peralatan dan ruang yang selamat semasa melakukan aktiviti.', id: 'a3_1_1' },
+  { code: '', label: 'A3.1.2 Mematuhi peraturan dan langkah-langkah keselamatan semasa melakukan aktiviti.', id: 'a3_1_2' },
+  { code: '', label: 'Afektif - Tanggungjawab Kendiri', isGroup: true },
+  { code: '', label: 'A3.1.3 Melibatkan diri secara aktif dan mempamerkan keseronokan semasa melakukan aktiviti.', id: 'a3_1_3' },
+  { code: '', label: 'A3.1.4 Mempamerkan sikap positif terhadap alam sekitar.', id: 'a3_1_4' },
+  { code: '', label: 'Afektif - Interaksi Sosial', isGroup: true },
+  { code: '', label: 'A3.1.5 Berinteraksi secara positif dalam pelbagai situasi semasa melakukan aktiviti.', id: 'a3_1_5' },
+  { code: '', label: 'Afektif - Dinamika Kumpulan', isGroup: true },
+  { code: '', label: 'A3.1.6 Bekerjasama mencapai matlamat kumpulan semasa melakukan aktiviti.', id: 'a3_1_6' },
+  { code: '', label: 'A3.1.7 Bekerjasama dalam kumpulan untuk menyelesaikan masalah.', id: 'a3_1_7' },
+
+  { code: 'C2.4', label: 'Bidang Pembelajaran: 4.0 Kecergasan Fizikal', isHeader: true },
+  { code: 'C2.4.1', label: 'Subbidang Pembelajaran: 4.1 Komponen Kecergasan Fizikal Berdasarkan Kesihatan', isSubHeader: true },
+  { code: '', label: 'a. Kandungan pembelajaran', id: 'c2_4_1_a' },
+  { code: '', label: 'b. Kompetensi', id: 'c2_4_1_b' },
+  { code: '', label: 'c. Standard pembelajaran', isLabel: true },
+  { code: '', label: 'Psikomotor - Kapasiti Aerobik', isGroup: true },
+  { code: '', label: 'P4.1.1 Melakukan aktiviti fizikal bagi meningkatkan dan mengekalkan kapasiti aerobik dalam julat intensiti 70%-80% daripada Kadar Nadi Latihan (KNL) berdasarkan prinsip FITT.', id: 'p4_1_1' },
+  { code: '', label: 'Psikomotor - Kelenturan', isGroup: true },
+  { code: '', label: 'P4.1.2 Melakukan senaman regangan statik dan dinamik untuk meningkatkan kelenturan yang dirancang berdasarkan prinsip FITT.', id: 'p4_1_2' },
+  { code: '', label: 'Psikomotor - Daya Tahan dan Kekuatan Otot', isGroup: true },
+  { code: '', label: 'P4.1.3 Melakukan senaman daya tahan dan kekuatan otot teras dengan bantuan alat bebanan yang dirancang berdasarkan prinsip FITT.', id: 'p4_1_3' },
+  { code: '', label: 'Psikomotor - Komposisi Badan', isGroup: true },
+  { code: '', label: 'P4.1.4 Mengukur lipatan kulit menggunakan kaliper pada empat titik cubitan di paha, trisep, abdominal dan suprailliac.', id: 'p4_1_4' },
+  { code: '', label: 'Kognitif - Kapasiti Aerobik', isGroup: true },
+  { code: '', label: 'K4.1.1 Menghubung kait antara kesan aktiviti aerobik dengan kesihatan diri dan rutin harian berdasarkan carian maklumat dari sumber teknologi.', id: 'k4_1_1' },
+  { code: '', label: 'K4.1.2 Merancang dan menerangkan sesi latihan fizikal untuk meningkatkan kapasiti aerobik berdasarkan prinsip FITT berdasarkan carian maklumat dari sumber teknologi.', id: 'k4_1_2' },
+  { code: '', label: 'Kognitif - Kelenturan', isGroup: true },
+  { code: '', label: 'K4.1.3 Merancang dan menerangkan senaman regangan statik dan dinamik untuk meningkatkan kelenturan berdasarkan prinsip FITT.', id: 'k4_1_3' },
+  { code: '', label: 'Kognitif - Daya Tahan dan Kekuatan Otot', isGroup: true },
+  { code: '', label: 'K4.1.4 Menjelaskan peranan atau fungsi otot teras dalam kehidupan harian.', id: 'k4_1_4' },
+  { code: '', label: 'K4.1.5 Menyenaraikan senaman yang sesuai untuk otot-otot teras berdasarkan pencarian maklumat.', id: 'k4_1_5' },
+  { code: '', label: 'K4.1.6 Merancang dan menjelaskan senaman daya tahan dan kekuatan otot teras dengan bantuan alat bebanan berdasarkan prinsip FITT.', id: 'k4_1_6' },
+  { code: '', label: 'Kognitif - Komposisi Badan', isGroup: true },
+  { code: '', label: 'K4.1.7 Menggunakan rumus atau perisian untuk mendapatkan peratus lemak badan sendiri berdasarkan ukuran lipatan kulit.', id: 'k4_1_7' },
+  { code: '', label: 'K4.1.8 Membandingkan peratus lemak badan sendiri dengan julat peratus lemak badan yang ideal berdasarkan Jadual Peratus Lemak Badan.', id: 'k4_1_8' },
+  { code: '', label: 'K4.1.9 Menerangkan kaedah pengukuran peratus lemak badan selain daripada ukuran lipatan kulit.', id: 'k4_1_9' },
+  { code: '', label: 'Afektif - Pengurusan dan Keselamatan', isGroup: true },
+  { code: '', label: 'A4.1.1 Melakukan aktiviti dengan menggunakan peralatan dan ruang yang selamat.', id: 'a4_1_1' },
+  { code: '', label: 'A4.1.2 Mematuhi peraturan keselamatan di tempat aktiviti.', id: 'a4_1_2' },
+  { code: '', label: 'Afektif - Tanggungjawab Kendiri', isGroup: true },
+  { code: '', label: 'A4.1.3 Menetapkan dan mencapai matlamat kendiri untuk kecergasan fizikal.', id: 'a4_1_3' },
+  { code: '', label: 'A4.1.4 Melibatkan diri secara aktif dan mempamerkan keseronokan semasa melakukan aktiviti.', id: 'a4_1_4' },
+  { code: '', label: 'Afektif - Interaksi Sosial', isGroup: true },
+  { code: '', label: 'A4.1.5 Berkomunikasi antara rakan, guru dan ahli kumpulan semasa melakukan aktiviti fizikal.', id: 'a4_1_5' },
+  { code: '', label: 'Afektif - Dinamika Kumpulan', isGroup: true },
+  { code: '', label: 'A4.1.6 Bekerjasama melakukan aktiviti secara berpasangan dan berkumpulan.', id: 'a4_1_6' },
+
+  { code: 'C2.4.2', label: 'Subbidang Pembelajaran: 4.2 Pentaksiran Kecergasan Fizikal', isSubHeader: true },
+  { code: '', label: 'a. Kandungan pembelajaran', id: 'c2_4_2_a' },
+  { code: '', label: 'b. Kompetensi', id: 'c2_4_2_b' },
+  { code: '', label: 'c. Standard pembelajaran', isLabel: true },
+  { code: '', label: 'Psikomotor', isGroup: true },
+  { code: '', label: 'P4.2.1 Mengukur tahap kecergasan fizikal menggunakan ujian SEGAK mengikut prosedur yang betul.', id: 'p4_2_1' },
+  { code: '', label: 'P4.2.2 Melakukan senaman yang dapat meningkatkan kecergasan berdasarkan keputusan ujian SEGAK.', id: 'p4_2_2' },
+  { code: '', label: 'Kognitif', isGroup: true },
+  { code: '', label: 'K4.2.1 Menganalisis keputusan ujian SEGAK untuk menentukan tahap kecergasan fizikal kendiri.', id: 'k4_2_1' },
+  { code: '', label: 'K4.2.2 Merancang pelan kecergasan sebagai tindakan susulan berdasarkan keputusan ujian SEGAK untuk meningkatkan kecergasan fizikal.', id: 'k4_2_2' },
+  { code: '', label: 'Afektif - Pengurusan dan Keselamatan', isGroup: true },
+  { code: '', label: 'A4.2.1 Mempamerkan kesediaan diri sebelum melakukan ujian SEGAK.', id: 'a4_2_1' },
+  { code: '', label: 'A4.2.2 Mematuhi arahan penguji semasa melakukan ujian SEGAK.', id: 'a4_2_2' },
+  { code: '', label: 'A4.2.3 Mematuhi peraturan keselamatan di tempat aktiviti.', id: 'a4_2_3' },
+  { code: '', label: 'Afektif - Tanggungjawab Kendiri', isGroup: true },
+  { code: '', label: 'A4.2.4 Menetapkan matlamat kendiri semasa melakukan aktiviti.', id: 'a4_2_4' },
+  { code: '', label: 'Afektif - Interaksi Sosial', isGroup: true },
+  { code: '', label: 'A4.2.5 Berkomunikasi antara rakan, guru dan ahli kumpulan semasa melakukan aktiviti fizikal.', id: 'a4_2_5' },
+  { code: '', label: 'Afektif - Dinamika Kumpulan', isGroup: true },
+  { code: '', label: 'A4.2.6 Bekerjasama dalam kumpulan semasa melakukan aktiviti.', id: 'a4_2_6' }
+];
+
+let schemaC3 = [
+  { code: 'C3.1', label: 'Bidang Pembelajaran: 1.0 Asas Pergerakan', isHeader: true },
+  { code: '', label: 'Tahap Penguasaan 4: Murid boleh melakukan kemahiran dan pengetahuan dalam Bidang Asas Pergerakan sebagai aktiviti meningkatkan kecergasan fizikal secara berterusan sebagai amalan gaya hidup sihat untuk kesejahteraan diri.', id: 'c3_1_tp4' },
+  { code: '', label: 'Tahap Penguasaan 3: Murid boleh melakukan kemahiran dalam Bidang Asas Pergerakan dengan betul dan mengaplikasikan pengetahuan konsep dan prinsip pergerakan.', id: 'c3_1_tp3' },
+  { code: '', label: 'Tahap Penguasaan 2: Murid boleh melakukan dan menerangkan pengetahuan berkaitan kemahiran pergerakan berirama mengikut muzik yang didengar dan rangkaian kemahiran asas gimnastik dengan betul.', id: 'c3_1_tp2' },
+  { code: '', label: 'Tahap Penguasaan 1: Murid boleh meniru atau melakukan dan menyatakan pengetahuan asas kemahiran dalam Bidang Asas Pergerakan.', id: 'c3_1_tp1' },
+
+  { code: 'C3.2', label: 'Bidang Pembelajaran: 2.0 Sukan dan Permainan', isHeader: true },
+  { code: '', label: 'Tahap Penguasaan 4: Murid boleh bermain permainan bola keranjang, hoki, pingpong, sofbol dan olahraga asas sebagai aktiviti meningkatkan kecergasan fizikal secara berterusan dengan beradab.', id: 'c3_2_tp4' },
+  { code: '', label: 'Tahap Penguasaan 3: Murid boleh mengaplikasikan kemahiran dan menggunakan pengetahuan bola keranjang, hoki, pingpong, sofbol dan olahraga asas dalam pelbagai situasi permainan.', id: 'c3_2_tp3' },
+  { code: '', label: 'Tahap Penguasaan 2: Murid boleh melakukan kemahiran serta menjelaskan pengetahuan dalam permainan bola keranjang, hoki, pingpong, sofbol dan olahraga asas dengan betul.', id: 'c3_2_tp2' },
+  { code: '', label: 'Tahap Penguasaan 1: Murid boleh meniru atau melakukan kemahiran yang terdapat dalam permainan bola keranjang, hoki, pingpong, sofbol dan olahraga asas.', id: 'c3_2_tp1' },
+
+  { code: 'C3.3', label: 'Bidang Pembelajaran: 3.0 Rekreasi dan Pendidikan Luar', isHeader: true },
+  { code: '', label: 'Tahap Penguasaan 4: Murid boleh mengaplikasikan kemahiran dalam permainan tradisional, aktiviti rekreasi dan pendidikan luar sebagai aktiviti meningkatkan kecergasan fizikal dengan beradab untuk kesejahteraan diri.', id: 'c3_3_tp4' },
+  { code: '', label: 'Tahap Penguasaan 3: Murid boleh melakukan kemahiran permainan tradisional, aktiviti rekreasi dan pendidikan luar dengan betul dan beradab.', id: 'c3_3_tp3' },
+  { code: '', label: 'Tahap Penguasaan 2: Murid boleh meneroka permainan tradisional, melakukan aktiviti rekreasi dan pendidikan luar serta menjelaskan pengetahuan yang berkaitan.', id: 'c3_3_tp2' },
+  { code: '', label: 'Tahap Penguasaan 1: Murid boleh bermain permainan tradisional, melakukan aktiviti rekreasi dan pendidikan luar.', id: 'c3_3_tp1' },
+
+  { code: 'C3.4', label: 'Bidang Pembelajaran: 4.0 Kecergasan Fizikal', isHeader: true },
+  { code: '', label: 'Tahap Penguasaan 4: Murid boleh mengamalkan senaman secara tekal untuk meningkatkan kecergasan fizikal sebagai amalan hidup sihat untuk kesejahteraan diri dengan beradab.', id: 'c3_4_tp4' },
+  { code: '', label: 'Tahap Penguasaan 3: Murid boleh mengaplikasikan prinsip FITT semasa melakukan senaman kecergasan fizikal dengan betul dan beradab.', id: 'c3_4_tp3' },
+  { code: '', label: 'Tahap Penguasaan 2: Murid boleh melakukan dan menjelaskan pengetahuan berkaitan aktiviti senaman kecergasan fizikal dengan betul bagi setiap komponen.', id: 'c3_4_tp2' },
+  { code: '', label: 'Tahap Penguasaan 1: Murid boleh melakukan aktiviti senaman berdasarkan komponen kecergasan fizikal berdasarkan kesihatan.', id: 'c3_4_tp1' }
+];
+
+// ==========================================
+// 3. FUNGSI LOG MASUK & KELUAR PENTADBIR (ADMIN)
+// ==========================================
+function loginAdmin() {
+  const inputPass = prompt('Sila masukkan Kata Laluan Pentadbir:');
+  if (!inputPass) return;
+
+  const btnLogin = document.getElementById('btnAdminLogin');
+  btnLogin.innerText = '🔑 Mengesahkan...';
+
+  fetch(`${SCRIPT_URL}?action=verifyAdmin&password=${encodeURIComponent(inputPass)}`)
+    .then(response => response.text())
+    .then(result => {
+      if (result.trim() === 'AUTH_SUCCESS') {
+        isAdminMode = true;
+        btnLogin.style.display = 'none';
+        document.getElementById('btnAnalisis').style.display = 'inline-block';
+        document.getElementById('btnLogout').style.display = 'inline-block';
+        document.getElementById('adminPanel').style.display = 'block';
+        alert('Akses Pentadbir Diluluskan!');
+      } else {
+        alert('Kata Laluan Salah! Akses Ditolak.');
+        btnLogin.innerText = '🔑 Admin';
+      }
+      renderBorang();
+    })
+    .catch(err => {
+      console.error(err);
+      btnLogin.innerText = '🔑 Admin';
+      alert('Ralat semasa menyemak kata laluan.');
+    });
+}
+
+function logoutAdmin() {
+  isAdminMode = false;
+  document.getElementById('btnAdminLogin').style.display = 'inline-block';
+  document.getElementById('btnAdminLogin').innerText = '🔑 Admin';
+  document.getElementById('btnAnalisis').style.display = 'none';
+  document.getElementById('btnLogout').style.display = 'none';
+  document.getElementById('adminPanel').style.display = 'none';
+  renderBorang();
+  alert('Anda telah log keluar daripada Mod Pentadbir.');
+}
+
+// ==========================================
+// 4. FUNGSI DASBOR ANALISIS KORPORAT KPM
+// ==========================================
+function bukaAnalisis() {
+  document.getElementById('modalAnalisis').style.display = 'block';
+  document.getElementById('analisisBody').innerHTML = '<p style="text-align: center; padding: 20px; font-style: italic;">Sedang mengambil data analisis dari Server...</p>';
+
+  fetch(`${SCRIPT_URL}?action=getAnalysis`)
+    .then(res => res.json())
+    .then(data => {
+      if (data.error) {
+        document.getElementById('analisisBody').innerHTML = `<p style="color:red; text-align:center;">Ralat: ${data.error}</p>`;
+        return;
+      }
+
+      globalAnalysisData = data;
+      const total = data.totalResponden || 1;
+
+      function buildAnalysisTable(title, mapObj) {
+        let keys = Object.keys(mapObj);
+        if (keys.length === 0) {
+          return `
+            <table class="kpm-table-analysis">
+              <thead><tr><th colspan="3">${title}</th></tr></thead>
+              <tbody><tr><td colspan="3" style="text-align:center; color:#888;">Tiada rekod data diterima</td></tr></tbody>
+            </table>
+          `;
+        }
+
+        let rows = keys.map((k, idx) => {
+          let count = mapObj[k];
+          let percent = ((count / total) * 100).toFixed(1);
+          return `
+            <tr>
+              <td style="width: 8%; text-align: center;">${idx + 1}</td>
+              <td style="width: 62%;">${k}</td>
+              <td style="width: 30%; text-align: right;"><b>${count}</b> (${percent}%)</td>
+            </tr>
+          `;
+        }).join('');
+
+        return `
+          <table class="kpm-table-analysis">
+            <thead>
+              <tr>
+                <th colspan="2">${title}</th>
+                <th style="text-align: right;">Bilangan (%)</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        `;
+      }
+
+      document.getElementById('analisisBody').innerHTML = `
+        <div class="stat-summary-box">
+          <div class="stat-card-kpm">
+            <span>Jumlah Guru Responden</span>
+            <strong>${data.totalResponden}</strong>
+          </div>
+          <div class="stat-card-kpm">
+            <span>Jumlah Murid Terlibat</span>
+            <strong>${data.totalMurid}</strong>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 20px;">
+          <div>
+            ${buildAnalysisTable('Profil Lokasi Sekolah', data.lokasi)}
+            ${buildAnalysisTable('Pecahan Mengikut Jantina', data.jantina)}
+            ${buildAnalysisTable('Pengalaman Mengajar (Tahun)', data.pengalaman)}
+            ${buildAnalysisTable('Status Opsyen Guru', data.opsyen)}
+          </div>
+          <div>
+            ${buildAnalysisTable('Kategori Jawatan Guru', data.jawatan)}
+            ${buildAnalysisTable('Kelulusan Akademik Tertinggi', data.akademik)}
+            ${buildAnalysisTable('Kelulusan Ikhtisas', data.ikhtisas)}
+            ${buildAnalysisTable('Taburan Responden Mengikut Negeri', data.negeri)}
+          </div>
+        </div>
+      `;
+    })
+    .catch(err => {
+      document.getElementById('analisisBody').innerHTML = `<p style="color:red; text-align:center;">Ralat semasa mengambil data analisis: ${err}</p>`;
+    });
+}
+
+function tutupAnalisis() {
+  document.getElementById('modalAnalisis').style.display = 'none';
+}
+
+// ==========================================
+// 5. FUNGSI MUAT TURUN KESELURUHAN EXCEL (.XLSX)
+// ==========================================
+function muatTurunKeseluruhanExcel() {
+  const btn = document.getElementById('btnDownloadExcel');
+  const originalText = btn ? btn.innerText : '';
+  
+  if (btn) {
+    btn.innerText = '⏳ Sedang Menyediakan Fail Excel...';
+    btn.disabled = true;
+  }
+
+  fetch(`${SCRIPT_URL}?action=getAllData`)
+    .then(res => res.json())
+    .then(rawData => {
+      if (rawData.error) {
+        alert('Ralat semasa mengambil data: ' + rawData.error);
+        return;
+      }
+
+      if (!rawData || rawData.length === 0) {
+        alert('Tiada data ditemui di dalam Google Sheet.');
+        return;
+      }
+
+      const ws = XLSX.utils.aoa_to_sheet(rawData);
+      const wb = XLSX.utils.book_new();
+      
+      XLSX.utils.book_append_sheet(wb, ws, "Keseluruhan Maklum Balas");
+
+      const tarikhAkses = new Date().toISOString().split('T')[0];
+      XLSX.writeFile(wb, `Data_Penuh_UjiRintis_PJK_T3_${tarikhAkses}.xlsx`);
+    })
+    .catch(err => {
+      console.error(err);
+      alert('Ralat semasa memuat turun fail Excel. Sila semak sambungan internet.');
+    })
+    .finally(() => {
+      if (btn) {
+        btn.innerText = originalText;
+        btn.disabled = false;
+      }
+    });
+}
+
+// ==========================================
+// 6. HELPER JANA JADUAL & RENDERING BORANG (KEMASKINI BAHAGIAN C)
+// ==========================================
+function generateTableRows(dataArr, secName) {
+  const adminStyle = isAdminMode ? 'inline-flex' : 'none';
+  return dataArr.map((row, idx) => {
+    if (row.isHeader) {
+      return `
+        <tr style="background-color: #0d47a1; color: #fff;">
+          <td style="padding: 10px; font-weight: bold; text-align: center;">${row.code}</td>
+          <td colspan="2" style="padding: 10px; font-weight: bold;">${row.label}</td>
+        </tr>
+      `;
+    }
+    if (row.isSubHeader) {
+      return `
+        <tr style="background-color: #1976d2; color: #fff;">
+          <td style="padding: 8px; font-weight: bold; text-align: center;">${row.code}</td>
+          <td colspan="2" style="padding: 8px; font-weight: bold;">${row.label}</td>
+        </tr>
+      `;
+    }
+    if (row.isGroup) {
+      return `
+        <tr style="background-color: #e3f2fd;">
+          <td style="padding: 6px;"></td>
+          <td colspan="2" style="padding: 6px; font-weight: bold; color: #0d47a1;">${row.label}</td>
+        </tr>
+      `;
+    }
+    if (row.isLabel) {
+      return `
+        <tr style="background-color: #f5f5f5;">
+          <td style="padding: 6px;"></td>
+          <td colspan="2" style="padding: 6px; font-weight: bold;">${row.label}</td>
+        </tr>
+      `;
+    }
+    return `
+      <tr>
+        <td style="padding: 8px; font-weight: bold; text-align: center;">${row.code}</td>
+        <td style="padding: 8px; font-size: 0.92rem;">
+          ${row.label}
+          <span class="admin-controls" style="display:${adminStyle}">
+            <button type="button" class="btn-edit-item" onclick="editItem('${secName}', ${idx})">Edit</button>
+            <button type="button" class="btn-delete-item" onclick="deleteItem('${secName}', ${idx})">Padam</button>
+          </span>
+        </td>
+        <td style="padding: 8px;">
+          <div style="display: flex; gap: 10px; margin-bottom: 5px; flex-wrap: wrap;">
+            <label style="cursor: pointer; font-weight: normal; font-size: 0.88rem;">
+              <input type="radio" name="${row.id}_status" value="Jelas" required onclick="toggleReason('${row.id}', false)"> Jelas
+            </label>
+            <label style="cursor: pointer; font-weight: normal; font-size: 0.88rem;">
+              <input type="radio" name="${row.id}_status" value="Kurang Jelas" required onclick="toggleReason('${row.id}', true)"> Kurang Jelas
+            </label>
+            <label style="cursor: pointer; font-weight: normal; font-size: 0.88rem;">
+              <input type="radio" name="${row.id}_status" value="Tidak Jelas" required onclick="toggleReason('${row.id}', true)"> Tidak Jelas
+            </label>
+          </div>
+          <textarea id="reason_${row.id}" name="${row.id}_penjelasan" rows="2" style="width: 100%; padding: 6px; border: 1px solid #ccc; border-radius: 4px; font-size: 0.88rem; display: none;" placeholder="Sila berikan catatan/penjelasan..."></textarea>
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function renderBorang() {
+  const container = document.getElementById('dynamicFormContainer');
+  const jenis = document.getElementById('jenisBorang').value;
+  const adminStyle = isAdminMode ? 'inline-flex' : 'none';
+
+  if (!jenis.startsWith('Instrumen 1')) {
+    container.innerHTML = `
+      <div class="info-box">
+        <h4>PEMBERITAHUAN</h4>
+        <p>Sistem sedia untuk memaparkan isi kandungan bagi <b>${jenis}</b>. Sila masukkan isi soalan apabila sedia.</p>
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = `
+    <div class="info-box">
+      <h4>PENGENALAN</h4>
+      <p style="margin-bottom: 10px;">Bahagian Pembangunan Kurikulum dan Bahagian Pendidikan Islam, Kementerian Pendidikan (KPM) sedang melaksanakan Uji Rintis Dokumen Kurikulum Persekolahan 2027 bagi Tahun 3 dan Tingkatan 3. Sehubungan itu, borang ini disediakan bagi mendapatkan maklumat dan pandangan guru yang mengajar murid Tahun 3 dan Tingkatan 3. Maklumat yang diberikan adalah penting untuk menambah baik Dokumen Kurikulum Persekolahan pada masa akan datang.</p>
+      <p>Dimohon kerjasama untuk menjawab semua soalan dalam borang ini dengan jujur dan ikhlas.</p>
+    </div>
+
+    <div class="info-box">
+      <h4>ARAHAN AM</h4>
+      <ol>
+        <li>Borang ini hendaklah dilengkapkan oleh Guru Mata Pelajaran yang terlibat dengan uji rintis Dokumen Kurikulum Pendidikan Jasmani bagi Tingkatan 3.</li>
+        <li>Guru perlu menyemak Dokumen Kurikulum mata pelajaran masing-masing dan melengkapkan borang ini berpandukan Dokumen Kurikulum yang telah diberi.</li>
+      </ol>
+    </div>
+
+    <!-- BAHAGIAN A -->
+    <div class="form-section">
+      <div class="section-title">BAHAGIAN A: PROFIL SEKOLAH</div>
+      ${schemaA.map((item, idx) => `
+        <div class="form-group">
+          <label>
+            ${item.code}) ${item.label}
+            <span class="admin-controls" style="display:${adminStyle}">
+              <button type="button" class="btn-edit-item" onclick="editItem('A', ${idx})">Edit</button>
+              <button type="button" class="btn-delete-item" onclick="deleteItem('A', ${idx})">Padam</button>
+            </span>
+          </label>
+          ${item.type === 'text' ? `<input type="text" name="${item.id}" placeholder="Isi jawapan" required>` : ''}
+          ${item.type === 'radio' ? `
+            <div class="options-grid">
+              ${item.options.map(opt => `<label class="option-item"><input type="radio" name="${item.id}" value="${opt}" required> ${opt}</label>`).join('')}
+            </div>
+          ` : ''}
+          ${item.type === 'radio_with_text' ? `
+            <div class="options-grid">
+              ${item.options.map(opt => `<label class="option-item"><input type="radio" name="${item.id}" value="${opt}" required> ${opt}</label>`).join('')}
+            </div>
+            <div class="nested-input"><input type="text" name="${item.id}_lain" placeholder="Nyatakan jika memilih Lain-lain"></div>
+          ` : ''}
+          ${item.type === 'select' ? `
+            <select name="${item.id}" required>
+              <option value="">-- Pilih --</option>
+              ${item.options.map(opt => `<option value="${opt}">${opt}</option>`).join('')}
+            </select>
+          ` : ''}
+        </div>
+      `).join('')}
+    </div>
+
+    <!-- BAHAGIAN B -->
+    <div class="form-section">
+      <div class="section-title">BAHAGIAN B: PROFIL GURU</div>
+      ${schemaB.map((item, idx) => `
+        <div class="form-group">
+          <label>
+            ${item.code}) ${item.label}
+            <span class="admin-controls" style="display:${adminStyle}">
+              <button type="button" class="btn-edit-item" onclick="editItem('B', ${idx})">Edit</button>
+              <button type="button" class="btn-delete-item" onclick="deleteItem('B', ${idx})">Padam</button>
+            </span>
+          </label>
+          ${item.type === 'number' ? `<input type="number" name="${item.id}" min="0" max="100" placeholder="Contoh: 30" required>` : ''}
+          ${item.type === 'radio' ? `
+            <div class="options-grid">
+              ${item.options.map(opt => `<label class="option-item"><input type="radio" name="${item.id}" value="${opt}" required> ${opt}</label>`).join('')}
+            </div>
+          ` : ''}
+          ${item.type === 'radio_with_text' ? `
+            <div class="options-grid">
+              ${item.options.map(opt => `<label class="option-item"><input type="radio" name="${item.id}" value="${opt}" required> ${opt}</label>`).join('')}
+            </div>
+            <div class="nested-input"><input type="text" name="${item.id}_lain" placeholder="Nyatakan jika bukan opsyen"></div>
+          ` : ''}
+        </div>
+      `).join('')}
+    </div>
+
+    <!-- BAHAGIAN C -->
+    <div class="form-section">
+      <div class="section-title">BAHAGIAN C: MAKLUM BALAS GURU TENTANG DOKUMEN KURIKULUM</div>
+      
+      <p style="margin-bottom: 10px; font-weight: 600;">Bahagian ini terdiri daripada tiga bahagian iaitu:</p>
+      <ul style="margin-left: 20px; margin-bottom: 15px; font-size: 0.95rem; color: #333;">
+        <li><b>Bahagian C1:</b> Awalan Dokumen Kurikulum Pendidikan Jasmani</li>
+        <li><b>Bahagian C2:</b> Kandungan Bidang Pembelajaran</li>
+        <li><b>Bahagian C3:</b> Standard Prestasi</li>
+      </ul>
+
+      <div class="info-box" style="margin-bottom: 20px;">
+        <p><b>Arahan:</b> Sila lengkapkan ruang maklum balas guru. Pilih <b>Jelas</b>, <b>Kurang Jelas</b>, atau <b>Tidak Jelas</b>. Sekiranya anda memilih <b>Kurang Jelas</b> atau <b>Tidak Jelas</b>, sila nyatakan catatan pada ruang yang disediakan (merangkumi kejelasan, kefahaman, ketepatan fakta, kesesuaian urutan, skop kedalaman, aras kesukaran, strategi PdP dan lain-lain).</p>
+      </div>
+
+      <h4 style="color: var(--primary-color); margin: 25px 0 10px 0;">C1) AWALAN DOKUMEN KURIKULUM</h4>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 10%; text-align: center;">Item</th>
+              <th style="width: 45%;">Perkara</th>
+              <th style="width: 45%;">Maklum Balas Guru</th>
+            </tr>
+          </thead>
+          <tbody>${generateTableRows(schemaC1, 'C1')}</tbody>
+        </table>
+      </div>
+
+      <h4 style="color: var(--primary-color); margin: 25px 0 10px 0;">C2) KANDUNGAN PEMBELAJARAN</h4>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 10%; text-align: center;">Item</th>
+              <th style="width: 45%;">Perkara</th>
+              <th style="width: 45%;">Maklum Balas Guru</th>
+            </tr>
+          </thead>
+          <tbody>${generateTableRows(schemaC2, 'C2')}</tbody>
+        </table>
+      </div>
+
+      <h4 style="color: var(--primary-color); margin: 25px 0 10px 0;">C3) STANDARD PRESTASI</h4>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 10%; text-align: center;">Item</th>
+              <th style="width: 45%;">Perkara</th>
+              <th style="width: 45%;">Maklum Balas Guru</th>
+            </tr>
+          </thead>
+          <tbody>${generateTableRows(schemaC3, 'C3')}</tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- BAHAGIAN D -->
+    <div class="form-section">
+      <div class="section-title">BAHAGIAN D: CADANGAN PENAMBAHBAIKAN KESELURUHAN</div>
+      <div class="form-group">
+        <label for="d1_cadangan">D1) Sila nyatakan cadangan penambahbaikan Dokumen Kurikulum Mata Pelajaran Pendidikan Jasmani Tingkatan 3 secara umum.</label>
+        <textarea id="d1_cadangan" name="d1_cadangan" rows="4" placeholder="Taip cadangan anda di sini..."></textarea>
+      </div>
+    </div>
+  `;
+}
+
+// ==========================================
+// 7. FUNGSI SUNTING ITEM / PENGAWALAN ADMIN
+// ==========================================
+function tambahItemBaru() {
+  const sec = document.getElementById('newSec').value;
+  const code = document.getElementById('newItemNo').value.trim();
+  const label = document.getElementById('newLabel').value.trim();
+
+  if (!code || !label) {
+    alert('Sila isi No. Item dan Teks Soalan!');
+    return;
+  }
+
+  const newItem = { id: 'custom_' + Date.now(), code: code, label: label, type: 'text' };
+
+  if (sec === 'A') schemaA.push(newItem);
+  else if (sec === 'B') schemaB.push({ ...newItem, type: 'radio', options: ['Pilihan 1', 'Pilihan 2'] });
+  else if (sec === 'C1') schemaC1.push(newItem);
+  else if (sec === 'C2') schemaC2.push(newItem);
+  else if (sec === 'C3') schemaC3.push(newItem);
+
+  document.getElementById('newItemNo').value = '';
+  document.getElementById('newLabel').value = '';
+
+  renderBorang();
+}
+
+function deleteItem(sec, index) {
+  if (confirm('Adakah anda pasti ingin memadam soalan ini?')) {
+    if (sec === 'A') schemaA.splice(index, 1);
+    if (sec === 'B') schemaB.splice(index, 1);
+    if (sec === 'C1') schemaC1.splice(index, 1);
+    if (sec === 'C2') schemaC2.splice(index, 1);
+    if (sec === 'C3') schemaC3.splice(index, 1);
+    renderBorang();
+  }
+}
+
+function editItem(sec, index) {
+  let item;
+  if (sec === 'A') item = schemaA[index];
+  if (sec === 'B') item = schemaB[index];
+  if (sec === 'C1') item = schemaC1[index];
+  if (sec === 'C2') item = schemaC2[index];
+  if (sec === 'C3') item = schemaC3[index];
+
+  const newLabel = prompt('Kemaskini teks soalan / perkara:', item.label);
+  if (newLabel !== null && newLabel.trim() !== '') {
+    item.label = newLabel.trim();
+    renderBorang();
+  }
+}
+
+function toggleReason(id, show) {
+  const el = document.getElementById('reason_' + id);
+  if (el) {
+    el.style.display = show ? 'block' : 'none';
+    if (show) el.setAttribute('required', 'required');
+    else {
+      el.removeAttribute('required');
+      el.value = '';
+    }
+  }
+}
+
+// ==========================================
+// 8. FUNGSI HANTAR BORANG (SUBMIT HANDLER)
+// ==========================================
+document.getElementById('pilotForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const submitBtn = document.getElementById('submitBtn');
+  submitBtn.disabled = true;
+  submitBtn.innerText = 'Sedang Menghantar Maklum Balas...';
+
+  const formData = new FormData(this);
+  const dataObj = Object.fromEntries(formData.entries());
+
+  fetch(SCRIPT_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'text/plain;charset=utf-8'
+    },
+    body: JSON.stringify(dataObj)
+  })
+  .then(response => response.text())
+  .then(resultText => {
+    if (resultText.trim() === 'SUCCESS') {
+      alert('Terima kasih! Maklum balas Borang Uji Rintis anda telah berjaya disimpan.');
+      document.getElementById('pilotForm').reset();
+      renderBorang();
+    } else {
+      alert('Amaran semasa menyimpan data: ' + resultText);
+    }
+  })
+  .catch(error => {
+    console.error('Ralat Penghantaran:', error);
+    alert('Ralat semasa menghantar borang! Sila semak sambungan internet anda.');
+  })
+  .finally(() => {
+    submitBtn.disabled = false;
+    submitBtn.innerText = 'Hantar Maklum Balas';
+  });
+});
+
+// Inisialisasi Paparan Pertama
+window.onload = function() {
+  renderBorang();
+};
+</script>
+</body>
+</html>
